@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPlan - Smart Workout Planner</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons for modern icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-background">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <main class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <i class='bx bx-dumbbell text-gradient'></i>
+                <h1>Fit<span class="text-gradient">Plan</span></h1>
+            </div>
+            <p class="subtitle">Smart, personalized workout generator</p>
+            <div class="header-actions">
+                <button id="printBtn" class="btn btn-outline" style="display: none;" title="Print or Save as PDF">
+                    <i class='bx bx-printer'></i> PDF / Print
+                </button>
+            </div>
+        </header>
+
+        <!-- Configuration Panel -->
+        <section class="config-panel glass-panel" id="configPanel">
+            <h2 class="panel-title"><i class='bx bx-slider-alt' ></i> Customize Your Plan</h2>
+            
+            <form id="workoutForm" class="config-form">
+                <!-- Goal Selection -->
+                <div class="form-group">
+                    <label>Primary Goal</label>
+                    <div class="radio-group" id="goalGroup">
+                        <label class="radio-card">
+                            <input type="radio" name="goal" value="lose-weight" required>
+                            <span class="card-content">
+                                <i class='bx bx-run'></i>
+                                <span>Lose Weight</span>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="goal" value="build-muscle" checked>
+                            <span class="card-content">
+                                <i class='bx bx-expand-alt'></i>
+                                <span>Build Muscle</span>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="goal" value="stay-fit">
+                            <span class="card-content">
+                                <i class='bx bx-heart-circle'></i>
+                                <span>Stay Fit</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Fitness Level Selection -->
+                <div class="form-group">
+                    <label>Fitness Level</label>
+                    <div class="radio-group" id="levelGroup">
+                        <label class="radio-card">
+                            <input type="radio" name="level" value="beginner" required>
+                            <span class="card-content">
+                                <i class='bx bx-battery'></i>
+                                <span>Beginner</span>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="level" value="intermediate" checked>
+                            <span class="card-content">
+                                <i class='bx bx-battery-half'></i>
+                                <span>Intermediate</span>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="level" value="advanced">
+                            <span class="card-content">
+                                <i class='bx bx-battery-full'></i>
+                                <span>Advanced</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Days Per Week -->
+                <div class="form-group">
+                    <label>Days Per Week</label>
+                    <div class="radio-group" id="daysGroup">
+                        <label class="radio-card">
+                            <input type="radio" name="days" value="3" required>
+                            <span class="card-content">
+                                <span>3 Days</span>
+                                <small>Full Body</small>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="days" value="4" checked>
+                            <span class="card-content">
+                                <span>4 Days</span>
+                                <small>Upper / Lower</small>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="days" value="5">
+                            <span class="card-content">
+                                <span>5 Days</span>
+                                <small>Bro Split / PPL</small>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-generate" id="generateBtn">
+                    <i class='bx bx-bolt-circle'></i> Generate My Workout Plan
+                </button>
+            </form>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loader" class="loader-container">
+            <div class="spinner"></div>
+            <p>Creating your perfect plan...</p>
+        </div>
+
+        <!-- Generated Plan Container -->
+        <section class="plan-container" id="planContainer">
+            <!-- Dynamic content will be injected here by app.js -->
+        </section>
+
+    </main>
+
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>
