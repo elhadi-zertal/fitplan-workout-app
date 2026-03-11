@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. DOM Elements
     const form = document.getElementById('workoutForm');
     const planContainer = document.getElementById('planContainer');
+    const nutritionContainer = document.getElementById('nutritionContainer');
     const loader = document.getElementById('loader');
     const printBtn = document.getElementById('printBtn');
 
@@ -144,9 +145,87 @@ document.addEventListener('DOMContentLoaded', () => {
         return plan;
     }
 
-    // 4. UI Rendering Functions
-    function renderPlan(planData) {
+    // 4. Nutrition Generation Algorithm
+    function generateNutrition(sex, age, weight, height, goal, days) {
+        // Mifflin-St Jeor Equation for BMR
+        // Male: (10 x weight) + (6.25 x height) - (5 x age) + 5
+        // Female: (10 x weight) + (6.25 x height) - (5 x age) - 161
+        let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+        bmr = sex === 'male' ? bmr + 5 : bmr - 161;
+
+        // Activity Multiplier based on Days working out
+        let multiplier = 1.2; // Sedentary base
+        if (days === 3) multiplier = 1.375; // Lightly active
+        if (days === 4) multiplier = 1.55;  // Moderately active
+        if (days === 5) multiplier = 1.725; // Very active
+
+        let tdee = bmr * multiplier;
+
+        // Goal Adjustment
+        let targetCalories = tdee;
+        if (goal === 'lose-weight') {
+            targetCalories = tdee - 500; // 500 cal deficit
+        } else if (goal === 'build-muscle') {
+            targetCalories = tdee + 300; // 300 cal surplus
+        }
+
+        targetCalories = Math.round(targetCalories);
+
+        // Macro Rules
+        // Protein: ~2.2g per kg of bodyweight
+        let protein = Math.round(weight * 2.2); 
+        
+        // Fat: 25% of total calories (1g fat = 9 kcal)
+        let fat = Math.round((targetCalories * 0.25) / 9);
+        
+        // Carbs: Remaining calories (1g carb = 4 kcal, 1g protein = 4 kcal)
+        let proteinCals = protein * 4;
+        let fatCals = fat * 9;
+        let remainingCals = targetCalories - (proteinCals + fatCals);
+        let carbs = Math.max(0, Math.round(remainingCals / 4)); // Ensure no negative carbs
+
+        return {
+            calories: targetCalories,
+            protein: protein,
+            carbs: carbs,
+            fat: fat
+        };
+    }
+
+    // 5. UI Rendering Functions
+    function renderPlan(planData, nutritionData) {
         planContainer.innerHTML = ''; 
+        nutritionContainer.innerHTML = '';
+
+        // -- Render Nutrition Dashboard --
+        nutritionContainer.innerHTML = `
+            <div class="plan-header">
+                <h2>Your Daily Nutrition Target</h2>
+                <p>Eat according to these targets to reach your specific goal.</p>
+            </div>
+            <div class="nutrition-dashboard">
+                <div class="calories-circle">
+                    <span class="amount">${nutritionData.calories}</span>
+                    <span class="label">KCAL / DAY</span>
+                </div>
+                <div class="macros-grid">
+                    <div class="macro-card macro-protein">
+                        <div class="macro-val">${nutritionData.protein}g</div>
+                        <div class="macro-label">Protein</div>
+                    </div>
+                    <div class="macro-card macro-carbs">
+                        <div class="macro-val">${nutritionData.carbs}g</div>
+                        <div class="macro-label">Carbs</div>
+                    </div>
+                    <div class="macro-card macro-fats">
+                        <div class="macro-val">${nutritionData.fat}g</div>
+                        <div class="macro-label">Fats</div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // -- Render Workout Plan --
 
         // Header View
         const headerDiv = document.createElement('div');
@@ -217,9 +296,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Event Listeners
+    // 6. Event Listeners
     form.addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        // Biometrics
+        const sex = document.querySelector('input[name="sex"]:checked').value;
+        const age = parseInt(document.getElementById('ageInput').value);
+        const weight = parseFloat(document.getElementById('weightInput').value);
+        const height = parseFloat(document.getElementById('heightInput').value);
+        
+        // Preferences
         const goal = document.querySelector('input[name="goal"]:checked').value;
         const level = document.querySelector('input[name="level"]:checked').value;
         const days = parseInt(document.querySelector('input[name="days"]:checked').value);
@@ -231,10 +318,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Timeout to simulate generation/loading 
         setTimeout(() => {
             const plan = generatePlan(goal, level, days);
+            const nutrition = generateNutrition(sex, age, weight, height, goal, days);
+            
             loader.classList.remove('active');
-            renderPlan(plan);
+            renderPlan(plan, nutrition);
+            
             printBtn.style.display = 'inline-flex';
             planContainer.classList.add('active');
+            nutritionContainer.classList.add('active');
             
             // Smooth scroll down
             window.scrollTo({

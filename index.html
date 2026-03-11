@@ -42,92 +42,136 @@
             <h2 class="panel-title"><i class='bx bx-slider-alt' ></i> Customize Your Plan</h2>
             
             <form id="workoutForm" class="config-form">
-                <!-- Goal Selection -->
-                <div class="form-group">
-                    <label>Primary Goal</label>
-                    <div class="radio-group" id="goalGroup">
-                        <label class="radio-card">
-                            <input type="radio" name="goal" value="lose-weight" required>
-                            <span class="card-content">
-                                <i class='bx bx-run'></i>
-                                <span>Lose Weight</span>
-                            </span>
-                        </label>
-                        <label class="radio-card">
-                            <input type="radio" name="goal" value="build-muscle" checked>
-                            <span class="card-content">
-                                <i class='bx bx-expand-alt'></i>
-                                <span>Build Muscle</span>
-                            </span>
-                        </label>
-                        <label class="radio-card">
-                            <input type="radio" name="goal" value="stay-fit">
-                            <span class="card-content">
-                                <i class='bx bx-heart-circle'></i>
-                                <span>Stay Fit</span>
-                            </span>
-                        </label>
+                <!-- Biometrics Section (New) -->
+                <div class="form-section">
+                    <h3 class="section-subtitle">Your Biometrics</h3>
+                    <p class="section-desc">Needed to calculate calories and macros accurately.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Sex</label>
+                            <div class="radio-group compact" id="sexGroup">
+                                <label class="radio-card">
+                                    <input type="radio" name="sex" value="male" required checked>
+                                    <span class="card-content">Male</span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="sex" value="female">
+                                    <span class="card-content">Female</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group half">
+                            <label>Age (years)</label>
+                            <input type="number" name="age" id="ageInput" min="15" max="100" value="25" required class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Weight (kg)</label>
+                            <input type="number" name="weight" id="weightInput" min="30" max="300" value="75" required class="form-input" step="0.1">
+                        </div>
+                        <div class="form-group half">
+                            <label>Height (cm)</label>
+                            <input type="number" name="height" id="heightInput" min="100" max="250" value="175" required class="form-input">
+                        </div>
                     </div>
                 </div>
 
-                <!-- Fitness Level Selection -->
-                <div class="form-group">
-                    <label>Fitness Level</label>
-                    <div class="radio-group" id="levelGroup">
-                        <label class="radio-card">
-                            <input type="radio" name="level" value="beginner" required>
-                            <span class="card-content">
-                                <i class='bx bx-battery'></i>
-                                <span>Beginner</span>
-                            </span>
-                        </label>
-                        <label class="radio-card">
-                            <input type="radio" name="level" value="intermediate" checked>
-                            <span class="card-content">
-                                <i class='bx bx-battery-half'></i>
-                                <span>Intermediate</span>
-                            </span>
-                        </label>
-                        <label class="radio-card">
-                            <input type="radio" name="level" value="advanced">
-                            <span class="card-content">
-                                <i class='bx bx-battery-full'></i>
-                                <span>Advanced</span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
+                <div class="form-divider"></div>
 
-                <!-- Days Per Week -->
-                <div class="form-group">
-                    <label>Days Per Week</label>
-                    <div class="radio-group" id="daysGroup">
-                        <label class="radio-card">
-                            <input type="radio" name="days" value="3" required>
-                            <span class="card-content">
-                                <span>3 Days</span>
-                                <small>Full Body</small>
-                            </span>
-                        </label>
-                        <label class="radio-card">
-                            <input type="radio" name="days" value="4" checked>
-                            <span class="card-content">
-                                <span>4 Days</span>
-                                <small>Upper / Lower</small>
-                            </span>
-                        </label>
-                        <label class="radio-card">
-                            <input type="radio" name="days" value="5">
-                            <span class="card-content">
-                                <span>5 Days</span>
-                                <small>Bro Split / PPL</small>
-                            </span>
-                        </label>
+                <!-- Original Config Section (Modified visually) -->
+                <div class="form-section">
+                    <h3 class="section-subtitle">Your Workout Preferences</h3>
+                    
+                    <!-- Goal Selection -->
+                    <div class="form-group">
+                        <label>Primary Goal</label>
+                        <div class="radio-group" id="goalGroup">
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="lose-weight" required>
+                                <span class="card-content">
+                                    <i class='bx bx-run'></i>
+                                    <span>Lose Weight</span>
+                                </span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="build-muscle" checked>
+                                <span class="card-content">
+                                    <i class='bx bx-expand-alt'></i>
+                                    <span>Build Muscle</span>
+                                </span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="stay-fit">
+                                <span class="card-content">
+                                    <i class='bx bx-heart-circle'></i>
+                                    <span>Stay Fit</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Fitness Level Selection -->
+                    <div class="form-group">
+                        <label>Fitness Level</label>
+                        <div class="radio-group" id="levelGroup">
+                            <label class="radio-card">
+                                <input type="radio" name="level" value="beginner" required>
+                                <span class="card-content">
+                                    <i class='bx bx-battery'></i>
+                                    <span>Beginner</span>
+                                </span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="level" value="intermediate" checked>
+                                <span class="card-content">
+                                    <i class='bx bx-battery-half'></i>
+                                    <span>Intermediate</span>
+                                </span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="level" value="advanced">
+                                <span class="card-content">
+                                    <i class='bx bx-battery-full'></i>
+                                    <span>Advanced</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Days Per Week -->
+                    <div class="form-group">
+                        <label>Days Per Week (influences TDEE)</label>
+                        <div class="radio-group" id="daysGroup">
+                            <label class="radio-card">
+                                <input type="radio" name="days" value="3" required>
+                                <span class="card-content">
+                                    <span>3 Days</span>
+                                    <small>Full Body</small>
+                                </span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="days" value="4" checked>
+                                <span class="card-content">
+                                    <span>4 Days</span>
+                                    <small>Upper / Lower</small>
+                                </span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="days" value="5">
+                                <span class="card-content">
+                                    <span>5 Days</span>
+                                    <small>Bro Split / PPL</small>
+                                </span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-generate" id="generateBtn">
-                    <i class='bx bx-bolt-circle'></i> Generate My Workout Plan
+                    <i class='bx bx-bolt-circle'></i> Generate My Plan
                 </button>
             </form>
         </section>
@@ -139,9 +183,17 @@
         </div>
 
         <!-- Generated Plan Container -->
-        <section class="plan-container" id="planContainer">
-            <!-- Dynamic content will be injected here by app.js -->
-        </section>
+        <div class="results-wrapper">
+            <!-- Nutrition Plan Container (New) -->
+            <section class="plan-container nutrition-container" id="nutritionContainer">
+                <!-- Injected via app.js -->
+            </section>
+
+            <!-- Workout Plan Container -->
+            <section class="plan-container" id="planContainer">
+                <!-- Dynamic content will be injected here by app.js -->
+            </section>
+        </div>
 
     </main>
 
