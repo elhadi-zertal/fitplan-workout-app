@@ -22,29 +22,61 @@
         <div class="glow glow-2"></div>
     </div>
 
+    <!-- MAIN HEADER -->
+    <header class="app-header">
+        <div class="logo">
+            <i class='bx bx-dumbbell text-gradient'></i>
+            <h1>Fit<span class="text-gradient">Plan</span></h1>
+        </div>
+        <p class="subtitle">Smart, science-based workout & nutrition</p>
+        
+        <div class="header-actions">
+            <!-- These show up only in the dashboard -->
+            <button id="resetBtn" class="btn btn-outline btn-sm hidden" title="Start Over">
+                <i class='bx bx-reset'></i> Reset
+            </button>
+            <button id="printBtn" class="btn btn-outline btn-sm hidden" title="Print or Save as PDF">
+                <i class='bx bx-printer'></i> PDF / Print
+            </button>
+        </div>
+    </header>
+
     <main class="app-container">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="logo">
-                <i class='bx bx-dumbbell text-gradient'></i>
-                <h1>Fit<span class="text-gradient">Plan</span></h1>
-            </div>
-            <p class="subtitle">Smart, personalized workout generator</p>
-            <div class="header-actions">
-                <button id="printBtn" class="btn btn-outline" style="display: none;" title="Print or Save as PDF">
-                    <i class='bx bx-printer'></i> PDF / Print
+
+        <!-- ============================== -->
+        <!-- VIEW 1: LANDING PAGE           -->
+        <!-- ============================== -->
+        <section id="view-landing" class="view active glass-panel landing-panel">
+            <div class="landing-content">
+                <div class="landing-icon-container">
+                    <i class='bx bx-line-chart'></i>
+                </div>
+                <h2 class="hero-title">Your Science-Backed Journey Starts Here</h2>
+                <p class="hero-desc">Tell us a bit about yourself. Our algorithm uses the established <strong>Mifflin-St Jeor equation</strong> for nutrition and modern hypertrophy volume markers to instantly build your optimized protocol.</p>
+                
+                <div class="features-list">
+                    <div class="feature-item"><i class='bx bx-check-circle text-success'></i> Customized Macro Targets</div>
+                    <div class="feature-item"><i class='bx bx-check-circle text-success'></i> Specialized Workout Splits</div>
+                    <div class="feature-item"><i class='bx bx-check-circle text-success'></i> Progress Saved Locally</div>
+                </div>
+
+                <button id="startBtn" class="btn btn-primary btn-xl">
+                    Get Started <i class='bx bx-right-arrow-alt'></i>
                 </button>
             </div>
-        </header>
+        </section>
 
-        <!-- Configuration Panel -->
-        <section class="config-panel glass-panel" id="configPanel">
-            <h2 class="panel-title"><i class='bx bx-slider-alt' ></i> Customize Your Plan</h2>
+        <!-- ============================== -->
+        <!-- VIEW 2: INTAKE FORM            -->
+        <!-- ============================== -->
+        <section id="view-form" class="view glass-panel">
+            <h2 class="panel-title"><i class='bx bx-slider-alt' ></i> Let's Build Your Plan</h2>
             
             <form id="workoutForm" class="config-form">
-                <!-- Biometrics Section (New) -->
+                
+                <!-- Biometrics Section -->
                 <div class="form-section">
-                    <h3 class="section-subtitle">Your Biometrics</h3>
+                    <h3 class="section-subtitle">1. Your Biometrics</h3>
                     <p class="section-desc">Needed to calculate calories and macros accurately.</p>
                     
                     <div class="form-row">
@@ -63,27 +95,28 @@
                         </div>
                         <div class="form-group half">
                             <label>Age (years)</label>
-                            <input type="number" name="age" id="ageInput" min="15" max="100" value="25" required class="form-input">
+                            <!-- Added strict min="0" and positive coercion -->
+                            <input type="number" name="age" id="ageInput" min="15" max="100" value="25" required class="form-input" oninput="this.value = Math.abs(this.value)">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group half">
                             <label>Weight (kg)</label>
-                            <input type="number" name="weight" id="weightInput" min="30" max="300" value="75" required class="form-input" step="0.1">
+                            <input type="number" name="weight" id="weightInput" min="30" max="300" value="75" required class="form-input" step="0.1" oninput="this.value = Math.abs(this.value)">
                         </div>
                         <div class="form-group half">
                             <label>Height (cm)</label>
-                            <input type="number" name="height" id="heightInput" min="100" max="250" value="175" required class="form-input">
+                            <input type="number" name="height" id="heightInput" min="100" max="250" value="175" required class="form-input" oninput="this.value = Math.abs(this.value)">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-divider"></div>
 
-                <!-- Original Config Section (Modified visually) -->
+                <!-- Config Section -->
                 <div class="form-section">
-                    <h3 class="section-subtitle">Your Workout Preferences</h3>
+                    <h3 class="section-subtitle">2. Your Goals & Experience</h3>
                     
                     <!-- Goal Selection -->
                     <div class="form-group">
@@ -143,7 +176,7 @@
 
                     <!-- Days Per Week -->
                     <div class="form-group">
-                        <label>Days Per Week (influences TDEE)</label>
+                        <label>Days Per Week (influences TDEE calculation)</label>
                         <div class="radio-group" id="daysGroup">
                             <label class="radio-card">
                                 <input type="radio" name="days" value="3" required>
@@ -171,7 +204,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-generate" id="generateBtn">
-                    <i class='bx bx-bolt-circle'></i> Generate My Plan
+                    <i class='bx bx-bolt-circle'></i> Generate Protocol
                 </button>
             </form>
         </section>
@@ -179,21 +212,54 @@
         <!-- Loading State -->
         <div id="loader" class="loader-container">
             <div class="spinner"></div>
-            <p>Creating your perfect plan...</p>
+            <p>Crunching the numbers...</p>
         </div>
 
-        <!-- Generated Plan Container -->
-        <div class="results-wrapper">
-            <!-- Nutrition Plan Container (New) -->
-            <section class="plan-container nutrition-container" id="nutritionContainer">
-                <!-- Injected via app.js -->
-            </section>
+        <!-- ============================== -->
+        <!-- VIEW 3: DASHBOARD / RESULTS    -->
+        <!-- ============================== -->
+        <section id="view-dashboard" class="view dashboard-wrapper">
+            
+            <!-- Tab Navigation -->
+            <div class="tabs-nav hidden-print">
+                <button class="tab-btn active" data-target="tab-nutrition">
+                    <i class='bx bx-restaurant'></i> Nutrition Protocol
+                </button>
+                <button class="tab-btn" data-target="tab-workout">
+                    <i class='bx bx-dumbbell'></i> Workout Program
+                </button>
+            </div>
 
-            <!-- Workout Plan Container -->
-            <section class="plan-container" id="planContainer">
-                <!-- Dynamic content will be injected here by app.js -->
-            </section>
-        </div>
+            <!-- TAB: NUTRITION -->
+            <div id="tab-nutrition" class="tab-content active">
+                <div class="science-blurb">
+                    <i class='bx bxs-bulb text-warning'></i>
+                    <p><strong>Science Note:</strong> Your BMR was calculated using the <em>Mifflin-St Jeor equation</em>. Total daily energy expenditure (TDEE) factors in your selected workout freqency.<br>Macro ratios prioritize ~2g of protein per kg of bodyweight to optimize lean mass retention/growth.</p>
+                </div>
+                
+                <section class="plan-container nutrition-container" id="nutritionContainer">
+                    <!-- Injected via app.js -->
+                </section>
+                
+                <!-- Meal Plan Container -->
+                <section class="plan-container meal-container mt-4" id="mealContainer">
+                     <!-- Injected via app.js -->
+                </section>
+            </div>
+
+            <!-- TAB: WORKOUT -->
+            <div id="tab-workout" class="tab-content">
+                <div class="science-blurb">
+                    <i class='bx bxs-bulb text-warning'></i>
+                    <p><strong>Science Note:</strong> Volume markers target 10-20 working sets per muscle group per week based on Dr. Brad Schoenfeld's hypertrophy guidelines. Progression over time is the key to adaptation.</p>
+                </div>
+                
+                <section class="plan-container" id="planContainer">
+                    <!-- Dynamic content will be injected here by app.js -->
+                </section>
+            </div>
+
+        </section>
 
     </main>
 

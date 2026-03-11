@@ -171,6 +171,17 @@ h1, h2, h3, h4, h5, h6 {
     outline: none;
 }
 
+.btn-xl {
+    padding: 1rem 2rem;
+    font-size: 1.15rem;
+    border-radius: var(--radius-lg);
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
 .btn-primary {
     background: var(--gradient-primary);
     color: white;
@@ -201,6 +212,80 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.5rem;
     border-radius: 50%;
 }
+
+.hidden {
+    display: none !important;
+}
+
+/* -- SPA Views -- */
+.view {
+    display: none;
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.view.active {
+    display: block;
+}
+
+/* -- Landing Panel -- */
+.landing-panel {
+    text-align: center;
+    padding: 4rem 2rem !important;
+}
+
+.landing-icon-container {
+    width: 80px;
+    height: 80px;
+    background: rgba(14, 165, 233, 0.1);
+    color: var(--accent-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 2rem;
+    box-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-desc {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+}
+
+.features-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-surface);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-color);
+    font-size: 0.95rem;
+}
+
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.mt-4 { margin-top: 2rem; }
 
 /* -- Glass Panels -- */
 .glass-panel {
@@ -305,7 +390,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .radio-group.compact {
     grid-template-columns: 1fr 1fr;
-    height: 100%;
+    gap: 0.5rem;
 }
 
 .radio-card input {
@@ -317,14 +402,14 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1.25rem 0.5rem;
+    padding: 0.75rem 0.5rem;
     background: var(--bg-surface);
     border: 2px solid transparent;
     border-radius: var(--radius-md);
     cursor: pointer;
     transition: var(--transition-normal);
     text-align: center;
-    height: 100%;
+    min-height: 60px;
 }
 
 .radio-card .card-content i {
@@ -385,6 +470,7 @@ h1, h2, h3, h4, h5, h6 {
     left: 50%;
     transform: translate(-50%, -50%);
     transition: var(--transition-normal);
+    z-index: 10;
 }
 
 .loader-container.active {
@@ -409,7 +495,98 @@ h1, h2, h3, h4, h5, h6 {
     100% { transform: rotate(360deg); }
 }
 
-/* -- Generated Plan Area -- */
+/* -- Generated Plan Area (Dashboard) -- */
+.dashboard-wrapper {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+/* -- Tabs Navigation -- */
+.tabs-nav {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+}
+.tabs-nav::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    transition: var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: var(--text-main);
+    background: rgba(255,255,255,0.02);
+}
+
+.tab-btn.active {
+    color: var(--accent-primary);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem; /* Aligns with the border-bottom of .tabs-nav */
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent-primary);
+    border-radius: 3px 3px 0 0;
+}
+
+/* -- Tab Content -- */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* -- Science Blurb -- */
+.science-blurb {
+    display: flex;
+    gap: 1rem;
+    background: rgba(245, 158, 11, 0.1);
+    border-left: 4px solid var(--warning);
+    padding: 1.25rem;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin-bottom: 2rem;
+}
+
+.science-blurb i {
+    font-size: 1.5rem;
+    margin-top: 2px;
+}
+
+.science-blurb p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.science-blurb strong {
+    color: var(--text-main);
+}
+
+/* -- General Containers -- */
 .results-wrapper {
     display: flex;
     flex-direction: column;
@@ -417,16 +594,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .plan-container {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.plan-container.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+    /* Visibility is now handled by the parent .view, no hiding needed */
+    animation: fadeIn 0.5s ease;
 }
 
 .plan-header {
@@ -552,15 +721,19 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1.5rem;
     border-bottom: 1px solid var(--border-color);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .day-header h3 {
     font-size: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+}
+
+.day-header p {
+    color: var(--accent-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
 }
 
 .day-focus {
@@ -654,6 +827,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* -- Animations -- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -675,8 +853,12 @@ h1, h2, h3, h4, h5, h6 {
         background: white;
         color: black;
     }
-    .app-background, .config-panel, .btn-generate, .header-actions {
+    .app-background, .config-panel, .btn-generate, .header-actions, .hidden-print, .science-blurb {
         display: none !important;
+    }
+    .tab-content {
+        display: block !important; /* Force all tabs to show up on print */
+        margin-bottom: 2rem;
     }
     .app-container {
         padding: 0;
