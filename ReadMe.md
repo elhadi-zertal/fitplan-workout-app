@@ -73,4 +73,5 @@ fitplan-workout-app/
 
 ---
 
-> Built with ❤️ using vanilla web technologies — no frameworks, no dependencies, no limits.
+
+> Built using vanilla web technologies — no frameworks, no dependencies, no limits.
