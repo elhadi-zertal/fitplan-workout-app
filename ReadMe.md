@@ -32,13 +32,7 @@ A fully client-side, science-based workout and nutrition planning web app. No ba
 
 ## 🚀 How to Run
 
-Just open `index.html` in your browser. That's it.
-
-Or run a local server:
-```bash
-python -m http.server 3010
-```
-Then visit `http://localhost:3010`.
+Just visit `https://fitplan-workout-app.vercel.app/`.
 
 ---
 
