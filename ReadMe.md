@@ -32,7 +32,7 @@ A fully client-side, science-based workout and nutrition planning web app. No ba
 
 ## 🚀 How to Run
 
-Just visit .[fitplan-workout-app.vercel.app](https://fitplan-workout-app.vercel.app/)
+🌐 **Live:**  [fitplan-workout-app.vercel.app](https://fitplan-workout-app.vercel.app/)
 
 ---
 
